@@ -3,18 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MeetingDetails } from '../../domain/models/meeting.model';
 import { RoomRepository } from '../../domain/repos/room.repo';
 
-import { RoomDto } from '../../dto/room.dto';
 import { Repository } from 'typeorm';
 import { MeetingEntity } from '../entities/meeting.entity';
 import { RoomEntity } from '../entities/room.entity';
 import { COVID_CAPACITY_MODIFIER, TWO_HOURS } from '../../constants/constants';
+import { Room } from '../../domain/models/room';
 @Injectable()
 export class RoomRepositoryImpl implements RoomRepository {
   constructor(
     @InjectRepository(RoomEntity)
     private readonly roomRepository: Repository<RoomEntity>,
   ) {}
-  async findByMeeting(meeting: MeetingDetails): Promise<RoomDto[]> {
+  async findByMeeting(meeting: MeetingDetails): Promise<Room[]> {
     const capacity = meeting.attendees / COVID_CAPACITY_MODIFIER;
     const entities = await this.roomRepository
       .createQueryBuilder('room')
@@ -27,7 +27,7 @@ export class RoomRepositoryImpl implements RoomRepository {
       )
       .getMany();
 
-    const result: RoomDto[] = entities.map((entity) => {
+    const result: Room[] = entities.map((entity) => {
       return {
         id: entity.id,
         capacity: entity.capacity,

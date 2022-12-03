@@ -1,4 +1,3 @@
-import { CreateMeetingDto } from 'src/planner/dto/meeting.dto';
 import { Meeting } from '../models/meeting.model';
 
 export interface MeetingRepository {

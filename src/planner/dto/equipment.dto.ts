@@ -1,5 +1,5 @@
-export type EquipmentDto = {
-  id: number;
-  name: string;
-  roomId: number;
-};
+// export type EquipmentDto = {
+//   id: number;
+//   name: string;
+//   roomId: number;
+// };

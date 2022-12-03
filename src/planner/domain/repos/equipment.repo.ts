@@ -1,7 +1,5 @@
-import { EquipmentDto } from 'src/planner/dto/equipment.dto';
-import { CreateMeetingDto } from 'src/planner/dto/meeting.dto';
-import { Meeting } from '../models/meeting.model';
+import { Equipment } from '../models/equipment';
 
 export interface EquipmentRepository {
-  findByIds: (ids: number[]) => Promise<EquipmentDto[]>;
+  findByIds: (ids: number[]) => Promise<Equipment[]>;
 }

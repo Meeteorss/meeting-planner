@@ -1,8 +1,8 @@
 import { Module, Provider } from '@nestjs/common';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
-import { PlannerController } from './app/controllers/planner.controller';
-import { MeetingService } from './app/services/meeting.service';
-
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PlannerController } from './api/planner.controller';
+import { MeetingApiService } from './app/services/meeting.service';
+import { MeetingService } from './domain/services/meeting.service';
 import { EquipmentEntity } from './infra/entities/equipment.entity';
 import { MeetingEntity } from './infra/entities/meeting.entity';
 import { RoomEntity } from './infra/entities/room.entity';
@@ -31,6 +31,6 @@ const infrastructure: Provider[] = [
   ],
 
   controllers: [PlannerController],
-  providers: [MeetingService, ...infrastructure, RoomSeeder],
+  providers: [MeetingService, MeetingApiService, ...infrastructure, RoomSeeder],
 })
 export class PlannerModule {}

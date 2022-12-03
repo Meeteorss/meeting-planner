@@ -43,7 +43,7 @@ export class MeetingRepositoryImpl implements MeetingRepository {
   private entityToModel(entity: MeetingEntity): Meeting {
     const args: CreateMeetingDto & { id: string } = {
       id: entity.id,
-      date: new Date(entity.date),
+      date: new Date(entity.date).toLocaleDateString(),
       type: MeetingType[entity.type],
       attendees: entity.attendees,
     };
