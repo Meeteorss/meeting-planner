@@ -1,3 +1,5 @@
+launch app en watch mode  : yarn dev
+launch unit tests : yarn jest
 Endpoint : POST http://localhost:3000/planner
 
 request body format example : {
