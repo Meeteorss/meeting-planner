@@ -2,6 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MOCK_ROOMS } from '../../utils/mock';
 import { TypeOrmSQLITETestingModule } from '../../tests/testingModule';
 import { Meeting } from './meeting.model';
+import {
+  INVALID_ATTENDEES_NUMBER_ERROR,
+  INVALID_DATE_ERROR,
+  INVALID_HOUR_ERROR,
+  INVALID_TYPE_ERROR,
+  NO_AVAILABLE_ROOM_ERROR,
+} from '../../constants/errors';
 
 describe('Meeting model', () => {
   let meeting: Meeting;
@@ -28,7 +35,7 @@ describe('Meeting model', () => {
         attendees: -9,
       });
     } catch (err) {
-      expect(err.message.includes('attendees')).toBeTruthy();
+      expect(err).toBe(INVALID_ATTENDEES_NUMBER_ERROR);
     }
   });
   it('should throw error of type ', () => {
@@ -39,7 +46,7 @@ describe('Meeting model', () => {
         attendees: 9,
       });
     } catch (err) {
-      expect(err.message.includes('type')).toBeTruthy();
+      expect(err).toBe(INVALID_TYPE_ERROR);
     }
   });
   it('should throw error of date ', () => {
@@ -50,7 +57,7 @@ describe('Meeting model', () => {
         attendees: 9,
       });
     } catch (err) {
-      expect(err.message.includes('date')).toBeTruthy();
+      expect(err).toBe(INVALID_DATE_ERROR);
     }
   });
   it('should throw error of hour ', () => {
@@ -61,7 +68,7 @@ describe('Meeting model', () => {
         attendees: 5,
       });
     } catch (err) {
-      expect(err.message.includes('hour')).toBeTruthy();
+      expect(err).toBe(INVALID_HOUR_ERROR);
     }
   });
   it('should affect a room to a meeting', () => {
@@ -84,7 +91,7 @@ describe('Meeting model', () => {
       });
       meeting.schedule(rooms);
     } catch (err) {
-      expect(err.message.includes('available')).toBeTruthy();
+      expect(err).toBe(NO_AVAILABLE_ROOM_ERROR);
     }
   });
 });

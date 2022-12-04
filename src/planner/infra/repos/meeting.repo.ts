@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { MeetingEntity } from '../entities/meeting.entity';
 import { CreateMeetingDto, MeetingType } from '../../dto/meeting.dto';
 import { Injectable } from '@nestjs/common';
+import { formatDate } from '../../utils/formatDate.util';
 
 @Injectable()
 export class MeetingRepositoryImpl implements MeetingRepository {
@@ -20,7 +21,11 @@ export class MeetingRepositoryImpl implements MeetingRepository {
     entity.hour = meeting.details().hour;
     entity.type = meeting.details().type.toString();
     entity.room = meeting.details().room;
-    const model = this.entityToModel(await this.meetingRepository.save(entity));
+
+    const savedEntity = await this.meetingRepository.save(entity);
+
+    const model = this.entityToModel(savedEntity);
+
     return model;
 
     // await this.meetingRepository.delete({});
@@ -31,6 +36,9 @@ export class MeetingRepositoryImpl implements MeetingRepository {
     date: Date,
     hour: number,
   ) => Promise<Meeting>;
+  async delete(): Promise<void> {
+    await this.meetingRepository.delete({});
+  }
 
   private modelToEntity(model: Meeting): MeetingEntity {
     const details = model.details();
@@ -43,10 +51,12 @@ export class MeetingRepositoryImpl implements MeetingRepository {
   private entityToModel(entity: MeetingEntity): Meeting {
     const args: CreateMeetingDto & { id: string } = {
       id: entity.id,
-      date: new Date(entity.date).toLocaleDateString(),
+      date: formatDate(new Date(entity.date)),
       type: MeetingType[entity.type],
       attendees: entity.attendees,
+      room: entity.room,
     };
+
     return new Meeting(args);
   }
 }

@@ -1,7 +1,7 @@
 export class ScheduleRequest {
-  private date: string;
-  private type: string;
-  private attendees: number;
+  date: string;
+  type: string;
+  attendees: number;
   constructor(date: string, type: string, attendees: number) {
     this.date = date;
     this.type = type;

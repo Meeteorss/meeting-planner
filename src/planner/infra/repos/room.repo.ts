@@ -26,6 +26,7 @@ export class RoomRepositoryImpl implements RoomRepository {
         } AND meeting.date > ${new Date(meeting.date).getTime() - TWO_HOURS} )`,
       )
       .getMany();
+    // console.log('entities ', entities);
 
     const result: Room[] = entities.map((entity) => {
       return {

@@ -85,6 +85,6 @@ describe('MeetingApiService', () => {
     const res = await appService.create(
       new ScheduleRequest('2022-12-5 9:00', 'VC', 10),
     );
-    expect(res.id).toBe('123');
+    expect(res.details().id).toBe('123');
   });
 });

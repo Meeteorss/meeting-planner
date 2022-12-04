@@ -2,14 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EquipmentEntity } from '../infra/entities/equipment.entity';
+import { MeetingEntity } from '../infra/entities/meeting.entity';
 import { RoomEntity } from '../infra/entities/room.entity';
 @Injectable()
 export class RoomSeeder {
   constructor(
     @InjectRepository(RoomEntity)
     private readonly roomRepository: Repository<RoomEntity>,
+    @InjectRepository(RoomEntity)
+    private readonly meetingRepository: Repository<MeetingEntity>,
   ) {}
   async seed() {
+    console.log('SEEDING...');
+
     const equipment2_1 = new EquipmentEntity();
     equipment2_1.name = 'Ecran';
     const equipment3_1 = new EquipmentEntity();
@@ -94,5 +99,13 @@ export class RoomSeeder {
         // equipments: [equipment4_1],
       },
     ]);
+    console.log('SEEDING DONE...');
+  }
+  async delete() {
+    console.log('DELETING...');
+
+    // await this.roomRepository.delete({});
+    await this.meetingRepository.delete({});
+    console.log('DELETING DONE...');
   }
 }

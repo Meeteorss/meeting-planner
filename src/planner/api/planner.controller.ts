@@ -12,15 +12,16 @@ export class PlannerController {
   ) {}
 
   @Post()
-  async schedule(@Body() args: ScheduleRequest): Promise<ScheduleResponse> {
+  async schedule(
+    @Body() args: ScheduleRequest,
+  ): Promise<ScheduleResponse | string> {
     // await this.seeder.seed();
     try {
       const response = await this.meetingService.create(args);
-      return response;
+      return ScheduleResponse.of(response);
     } catch (err) {
-      return err;
+      return err.message;
     }
-
     // return null;
   }
 }

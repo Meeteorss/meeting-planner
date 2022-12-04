@@ -2,18 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { TypeOrmSQLITETestingModule } from '../../tests/testingModule';
 import { MeetingType } from '../../dto/meeting.dto';
-import { MeetingService } from './meeting.service';
+
 import { RoomRepository } from '../../domain/repos/room.repo';
 import { MeetingRepository } from '../../domain/repos/meeting.repo';
 import { EquipmentRepository } from '../../domain/repos/equipment.repo';
 import { InjectionToken } from '../../injection.token';
 import { PlannerModule } from '../../planner.module';
-import { RoomDto } from '../../dto/room.dto';
-import { EquipmentDto } from '../../dto/equipment.dto';
+
 import { Meeting } from '../../domain/models/meeting.model';
 
 describe('MeetingService', () => {
-  let service: MeetingService;
   let roomRepository: RoomRepository;
   let meetingRepository: MeetingRepository;
   let equipmentRepository: EquipmentRepository;

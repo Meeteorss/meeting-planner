@@ -26,7 +26,10 @@ export class MeetingService {
       attendees,
     });
 
-    const rooms = await this.roomRepository.findByMeeting(meeting.details());
+    const rooms = await this.roomRepository.findByMeeting({
+      ...meeting.details(),
+      attendees: meeting.capacityNeeded(),
+    });
     if (!rooms.length) {
       throw new Error('No available room');
     }
@@ -40,6 +43,6 @@ export class MeetingService {
 
     meeting.schedule(rooms);
 
-    return this.meetingRepository.save(meeting);
+    return await this.meetingRepository.save(meeting);
   }
 }
